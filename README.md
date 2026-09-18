@@ -4,6 +4,7 @@ An accepted PyPy 3 solution for the Codeforces problem **580D — Kefa and Dishe
 
 [![Codeforces](https://img.shields.io/badge/Codeforces-580D-1F8ACB?logo=codeforces)](https://codeforces.com/problemset/problem/580/D)
 [![Verdict](https://img.shields.io/badge/Verdict-Accepted-brightgreen)](https://codeforces.com/contest/580/submission/391171501)
+[![Tests](https://github.com/shawonsmith/Bitmask-DP-Optimisation-Codeforces-580D/actions/workflows/tests.yml/badge.svg)](https://github.com/shawonsmith/Bitmask-DP-Optimisation-Codeforces-580D/actions/workflows/tests.yml)
 [![Language](https://img.shields.io/badge/Language-PyPy%203-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -120,6 +121,9 @@ python -m unittest discover -s tests -v
 
 ```text
 Bitmask-DP-Optimisation-Codeforces-580D/
+├── .github/
+│   └── workflows/
+│       └── tests.yml
 ├── tests/
 │   └── test_solution.py
 ├── .gitignore
