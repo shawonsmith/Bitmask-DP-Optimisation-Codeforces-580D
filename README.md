@@ -1,65 +1,77 @@
 # Bitmask DP Optimisation — Codeforces 580D
 
-An optimised Python implementation of the Codeforces problem **580D — Kefa and Dishes**, developed using Bitmask Dynamic Programming.
+An accepted PyPy 3 solution for the Codeforces problem **580D — Kefa and Dishes**, implemented with Bitmask Dynamic Programming.
+
+[![Codeforces](https://img.shields.io/badge/Codeforces-580D-1F8ACB?logo=codeforces)](https://codeforces.com/problemset/problem/580/D)
+[![Verdict](https://img.shields.io/badge/Verdict-Accepted-brightgreen)](https://codeforces.com/contest/580/submission/391171501)
+[![Language](https://img.shields.io/badge/Language-PyPy%203-blue)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## Problem Overview
 
-Kefa can choose exactly `m` dishes from `n` available dishes. Each dish provides a satisfaction value. Eating certain dishes consecutively may also provide an additional satisfaction bonus.
+Kefa must choose exactly `m` dishes from `n` available dishes. Every dish has a base satisfaction value, and eating certain dishes consecutively can add an order-dependent bonus.
 
-The objective is to determine the best selection and eating order that produces the maximum possible satisfaction.
+The objective is to find the selection and eating order that maximises total satisfaction.
 
-**Original problem:** [Codeforces 580D — Kefa and Dishes](https://codeforces.com/problemset/problem/580/D)
+- **Problem:** [Codeforces 580D — Kefa and Dishes](https://codeforces.com/problemset/problem/580/D)
+- **Rating:** 1800
+- **Constraints:** `1 ≤ m ≤ n ≤ 18`
+- **Techniques:** Bitmasking, Dynamic Programming
 
-## Solution Approach
+## Dynamic Programming Approach
 
-This solution uses **Bitmask Dynamic Programming** to represent and evaluate different combinations and orders of dishes.
+The state is:
 
-The DP state is:
+```text
+dp[mask][last]
+```
 
-`dp[mask][last]`
+- `mask` represents the set of dishes already selected.
+- `last` represents the most recently eaten dish.
+- `dp[mask][last]` stores the maximum satisfaction achievable for that state.
 
-Where:
+If `next_dish` has not been selected, the transition is:
 
-* `mask` represents the dishes that have already been selected.
-* `last` represents the most recently selected dish.
-* `dp[mask][last]` stores the maximum satisfaction obtainable for that state.
+```text
+new_mask = mask | (1 << next_dish)
 
-For every valid state, the algorithm attempts to add an available dish. The updated score includes:
+new_score = dp[mask][last]
+            + satisfaction[next_dish]
+            + bonus[last][next_dish]
+```
 
-* The satisfaction value of the new dish.
-* Any sequence bonus earned by eating the new dish after the previous dish.
+The answer is the best reachable state containing exactly `m` selected dishes.
 
-## State Transition
+## Why Bitmask DP?
 
-When `next_dish` has not yet been selected:
+The order of the selected dishes matters because bonuses depend on consecutive pairs. Tracking only the number of selected dishes is therefore insufficient.
 
-`new_mask = mask | (1 << next_dish)`
+A bitmask records the chosen subset, while `last` preserves the information needed to calculate the next transition bonus. With `n ≤ 18`, all subsets can be explored efficiently.
 
-The new score is calculated as:
+## Python Optimisations
 
-`new_score = current_score + satisfaction[next_dish] + bonus[last][next_dish]`
+- Uses `sys.stdin.buffer.readline` for fast input.
+- Represents selected dishes with integer bitmasks.
+- Iterates through set bits instead of scanning all dishes repeatedly.
+- Skips unreachable states.
+- Stops expanding states after exactly `m` dishes are selected.
+- Uses a precomputed mapping from isolated bits to dish indices.
 
-The DP state is then updated only if the new score is greater than the previously stored score.
+## Complexity
 
-## Performance Optimisation
+- **Time:** `O(2^n × n²)`
+- **Space:** `O(2^n × n)`
 
-The implementation includes several Python-specific optimisations:
+## Accepted Submission
 
-* Uses `sys.stdin.buffer.readline` for faster input.
-* Uses bit operations for efficient state representation.
-* Iterates only through selected dishes and available dishes.
-* Avoids unnecessary full-range loops where possible.
-* Skips invalid or unreachable DP states.
-* Stops expanding a state after exactly `m` dishes have been selected.
+- **Verdict:** Accepted ✅
+- **Language:** PyPy 3
+- **Submission ID:** `391171501`
+- **Submission:** [View accepted submission](https://codeforces.com/contest/580/submission/391171501)
 
-## Complexity Analysis
+## Example
 
-* **Time Complexity:** `O(2^n × n²)`
-* **Space Complexity:** `O(2^n × n)`
-
-The constraints allow this approach because the maximum number of dishes is small enough for bitmask-based state representation.
-
-## Sample Input
+### Input
 
 ```text
 4 3 2
@@ -68,76 +80,69 @@ The constraints allow this approach because the maximum number of dishes is smal
 3 4 2
 ```
 
-## Sample Output
+### Output
 
 ```text
 12
 ```
 
-## Sample Explanation
-
-One optimal order is:
-
-1. Eat dish 2 and receive `2` satisfaction.
-2. Eat dish 1 and receive `1` satisfaction plus a bonus of `5`.
-3. Eat dish 4 and receive `4` satisfaction.
-
-Total satisfaction:
-
-`2 + 1 + 5 + 4 = 12`
-
-## Project Structure
+One optimal order is dish 2 → dish 1 → dish 4:
 
 ```text
-Bitmask-DP-Optimisation-Codeforces-580D/
-├── .gitignore
-├── README.md
-└── kefa_and_dishes.py
+2 + 1 + 5 + 4 = 12
 ```
 
-## Technologies and Concepts
+## Running Locally
 
-* Python
-* Dynamic Programming
-* Bitmasking
-* State Transition
-* Algorithm Optimisation
-* Competitive Programming
-* Problem Solving
-* Time and Space Complexity Analysis
-
-## Learning Outcomes
-
-Through this project, I practised:
-
-* Representing subsets using binary masks.
-* Designing multidimensional dynamic programming states.
-* Applying sequence-dependent bonuses.
-* Reducing unnecessary iterations with bitwise operations.
-* Optimising Python code for strict execution limits.
-* Analysing algorithmic time and memory complexity.
-
-## Running the Solution
-
-Make sure Python 3 is installed, then run:
+Python 3.8 or later is required because the solution uses `int.bit_count()`.
 
 ```bash
 python kefa_and_dishes.py
 ```
 
-Enter the input according to the original Codeforces problem format.
+Enter input using the format specified in the original problem.
 
-## Submission Status
+## Tests
 
-- **Verdict:** Accepted ✅
-- **Problem:** Codeforces 580D — Kefa and Dishes
-- **Language:** PyPy 3
-- **Rating:** 1800
-- **Techniques:** Bitmasking and Dynamic Programming
-- **Submission:** [View Accepted Submission](https://codeforces.com/contest/580/submission/391171501)
+The repository includes regression tests covering:
+
+- The official sample.
+- Selecting only one dish.
+- Order-dependent transition bonuses.
+
+Run them with:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+## Project Structure
+
+```text
+Bitmask-DP-Optimisation-Codeforces-580D/
+├── tests/
+│   └── test_solution.py
+├── .gitignore
+├── LICENSE
+├── README.md
+└── kefa_and_dishes.py
+```
+
+## Key Learning Outcomes
+
+- Representing subsets with binary masks.
+- Designing multi-dimensional DP states.
+- Handling order-dependent rewards.
+- Optimising state transitions with bit operations.
+- Analysing exponential dynamic-programming complexity.
+- Testing algorithmic solutions with automated regression cases.
+
+## License
+
+This project is available under the [MIT License](LICENSE).
 
 ## Author
 
 **Shawon Khan**
 
-- GitHub: [shawonsmith](https://github.com/shawonsmith)
+- GitHub: [@shawonsmith](https://github.com/shawonsmith)
