@@ -131,3 +131,12 @@ Enter the input according to the original Codeforces problem format.
 **Shawon Khan**
 
 * GitHub: [shawonsmith](https://github.com/shawonsmith)
+
+* ## Submission Status
+
+- **Verdict:** Accepted ✅
+- **Problem:** Codeforces 580D — Kefa and Dishes
+- **Language:** PyPy 3
+- **Rating:** 1800
+- **Techniques:** Bitmasking and Dynamic Programming
+- **Submission:** [View Accepted Submission](https://codeforces.com/contest/580/submission/391171501))
