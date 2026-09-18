@@ -90,6 +90,7 @@ Total satisfaction:
 
 ```text
 Bitmask-DP-Optimisation-Codeforces-580D/
+├── .gitignore
 ├── README.md
 └── kefa_and_dishes.py
 ```
@@ -126,17 +127,17 @@ python kefa_and_dishes.py
 
 Enter the input according to the original Codeforces problem format.
 
-## Author
-
-**Shawon Khan**
-
-* GitHub: [shawonsmith](https://github.com/shawonsmith)
-
-* ## Submission Status
+## Submission Status
 
 - **Verdict:** Accepted ✅
 - **Problem:** Codeforces 580D — Kefa and Dishes
 - **Language:** PyPy 3
 - **Rating:** 1800
 - **Techniques:** Bitmasking and Dynamic Programming
-- **Submission:** [View Accepted Submission](https://codeforces.com/contest/580/submission/391171501))
+- **Submission:** [View Accepted Submission](https://codeforces.com/contest/580/submission/391171501)
+
+## Author
+
+**Shawon Khan**
+
+- GitHub: [shawonsmith](https://github.com/shawonsmith)
